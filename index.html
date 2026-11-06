@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛙漫官网网页-蛙漫官网网页在线漫画阅读入口_蛙漫官网网页漫画书架</title>
+<meta name="description" content="蛙漫官网网页是蛙漫漫画的网页端入口说明页，介绍网页版阅读方式、书架入口、分类浏览与常见使用问题，帮助读者在浏览器中顺畅找到想看的漫画。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f7a4d'/%3E%3Ccircle cx='24' cy='24' r='6' fill='%23e8f7ee'/%3E%3Ccircle cx='42' cy='24' r='6' fill='%23e8f7ee'/%3E%3Cpath d='M18 42c4 8 24 8 28 0' stroke='%23e8f7ee' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --green:#1f7a4d;
+  --green-deep:#14532f;
+  --green-soft:#e8f7ee;
+  --ink:#1c2620;
+  --ink-2:#4a5a51;
+  --line:#d8e6dd;
+  --paper:#fbfdfb;
+  --amber:#c98a2b;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.75;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+.wrap{width:min(1120px,92vw);margin:0 auto}
+
+/* 页头 */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(251,253,251,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{display:flex;align-items:center;gap:24px;padding:12px 0}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand-mark{width:40px;height:40px;flex:none}
+.brand-text{font-size:19px;font-weight:800;color:var(--green-deep);letter-spacing:.5px;white-space:nowrap}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav a{
+  padding:7px 12px;border-radius:999px;font-size:14.5px;color:var(--ink-2);
+  transition:.18s;white-space:nowrap;
+}
+.nav a:hover{background:var(--green-soft);color:var(--green-deep)}
+.nav .nav-cta{
+  background:var(--green);color:#fff;font-weight:600;
+}
+.nav .nav-cta:hover{background:var(--green-deep);color:#fff}
+
+/* 首屏 */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(165deg,#eef9f1 0%,#fbfdfb 62%);
+  border-bottom:1px solid var(--line);
+}
+.hero-inner{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:40px;
+  align-items:center;padding:56px 0 60px;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid var(--line);
+  color:var(--green-deep);font-size:13px;font-weight:600;
+  padding:5px 13px;border-radius:999px;margin-bottom:18px;
+}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+h1{
+  font-size:clamp(1.85rem,4.4vw,2.85rem);
+  line-height:1.25;font-weight:900;color:var(--green-deep);
+  letter-spacing:.5px;
+}
+.hero-lead{
+  margin-top:18px;font-size:16.5px;color:var(--ink-2);max-width:34em;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:999px;font-size:15px;font-weight:600;
+  transition:.18s;border:1px solid transparent;
+}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-deep)}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--green-deep)}
+.btn-ghost:hover{border-color:var(--green);background:var(--green-soft)}
+.hero-note{margin-top:16px;font-size:13.5px;color:#6b7a71}
+
+.hero-art{
+  background:#fff;border:1px solid var(--line);border-radius:22px;
+  padding:18px;box-shadow:0 18px 40px -28px rgba(20,83,47,.45);
+}
+.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.shelf-card{
+  border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--green-soft);
+  aspect-ratio:3/4;position:relative;
+}
+.shelf-card svg{width:100%;height:100%}
+.shelf-card span{
+  position:absolute;left:0;right:0;bottom:0;
+  font-size:11px;padding:4px 6px;color:#fff;background:rgba(20,83,47,.78);
+  line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.hero-art .cap{font-size:12.5px;color:#6b7a71;margin-top:12px;text-align:center}
+
+/* 通用区块 */
+section{padding:56px 0}
+.sec-head{max-width:40em;margin-bottom:30px}
+.sec-kicker{
+  font-size:13px;font-weight:700;letter-spacing:2px;
+  color:var(--amber);text-transform:uppercase;margin-bottom:8px;
+}
+h2{font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:800;color:var(--green-deep);line-height:1.35}
+.sec-head p{margin-top:10px;color:var(--ink-2);font-size:15.5px}
+
+/* 阅读方式：三卡 */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 22px;transition:.2s;
+}
+.card:hover{border-color:#b6d9c6;box-shadow:0 14px 32px -26px rgba(20,83,47,.5)}
+.card-ico{
+  width:44px;height:44px;border-radius:12px;background:var(--green-soft);
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+}
+.card h3{font-size:16.5px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.card p{font-size:14.5px;color:var(--ink-2);line-height:1.75}
+
+/* 书架区 */
+.bookcase{background:#f4faf6;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px;
+}
+.search-box{
+  display:flex;align-items:center;gap:8px;background:#fff;
+  border:1px solid var(--line);border-radius:999px;padding:6px 6px 6px 16px;
+  flex:1 1 260px;max-width:360px;
+}
+.search-box input{
+  border:none;outline:none;font:inherit;font-size:14.5px;flex:1;background:transparent;color:var(--ink);
+  min-width:0;
+}
+.search-box input::placeholder{color:#9aa8a0}
+.search-box button{
+  border:none;background:var(--green);color:#fff;font:inherit;font-size:14px;font-weight:600;
+  padding:7px 16px;border-radius:999px;cursor:pointer;transition:.18s;
+}
+.search-box button:hover{background:var(--green-deep)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{
+  border:1px solid var(--line);background:#fff;color:var(--ink-2);
+  font:inherit;font-size:13.5px;padding:6px 14px;border-radius:999px;cursor:pointer;transition:.18s;
+}
+.chip:hover{border-color:var(--green);color:var(--green-deep)}
+.chip.active{background:var(--green);border-color:var(--green);color:#fff}
+
+.book-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.book{
+  background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  transition:.2s;display:flex;flex-direction:column;
+}
+.book:hover{transform:translateY(-3px);box-shadow:0 16px 30px -24px rgba(20,83,47,.55)}
+.book-cover{aspect-ratio:3/4;background:var(--green-soft);position:relative}
+.book-cover svg{width:100%;height:100%}
+.tag{
+  position:absolute;top:8px;left:8px;font-size:11px;font-weight:600;
+  background:rgba(255,255,255,.9);color:var(--green-deep);padding:2px 8px;border-radius:999px;
+}
+.book-meta{padding:12px 13px 14px}
+.book-meta h4{font-size:14.5px;font-weight:700;line-height:1.45;color:var(--ink)}
+.book-meta p{font-size:12.5px;color:#74847b;margin-top:4px}
+.empty-hint{
+  display:none;padding:26px;text-align:center;color:var(--ink-2);font-size:14.5px;
+  background:#fff;border:1px dashed var(--line);border-radius:12px;
+}
+.empty-hint.show{display:block}
+
+/* 使用说明：双栏 */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.faq-list{display:flex;flex-direction:column;gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+details{border-bottom:1px solid var(--line)}
+details:last-child{border-bottom:none}
+summary{
+  cursor:pointer;list-style:none;padding:17px 20px;font-size:15px;font-weight:600;color:var(--ink);
+  display:flex;justify-content:space-between;gap:14px;align-items:center;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"+";font-size:19px;color:var(--green);font-weight:400;line-height:1;flex:none;
+}
+details[open] summary::after{content:"–"}
+details p{padding:0 20px 18px;font-size:14.5px;color:var(--ink-2);line-height:1.8}
+.faq-side{background:var(--green-soft);border-radius:var(--radius);padding:28px 26px;border:1px solid #cfe9da}
+.faq-side h3{font-size:16.5px;font-weight:800;color:var(--green-deep);margin-bottom:12px}
+.faq-side ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.faq-side li{font-size:14.5px;color:#2c4437;padding-left:22px;position:relative;line-height:1.75}
+.faq-side li::before{
+  content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:2px;background:var(--amber);
+}
+
+/* 下载条 */
+.download-band{
+  background:var(--green-deep);color:#eafaf0;border-radius:20px;
+  padding:34px 34px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between;
+}
+.download-band h2{color:#fff;font-size:1.35rem}
+.download-band p{font-size:14.5px;color:#c8e8d5;margin-top:6px;max-width:40em}
+.btn-download{
+  background:#fff;color:var(--green-deep);font-weight:700;padding:12px 26px;
+  pointer-events:none;cursor:default;
+}
+
+/* 页尾 */
+.site-footer{border-top:1px solid var(--line);background:#f4faf6;padding:40px 0 34px;margin-top:20px}
+.footer-inner{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+.footer-brand{max-width:24em}
+.footer-brand .brand{margin-bottom:12px}
+.footer-brand p{font-size:13.5px;color:#6b7a71;line-height:1.8}
+.footer-links{display:flex;gap:44px;flex-wrap:wrap}
+.footer-col h4{font-size:13.5px;font-weight:700;color:var(--green-deep);margin-bottom:10px;letter-spacing:.5px}
+.footer-col a{display:block;font-size:13.5px;color:#6b7a71;padding:3px 0}
+.footer-col a:hover{color:var(--green)}
+.copyright{
+  margin-top:30px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:12.5px;color:#8a978f;text-align:center;
+}
+
+@media (max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:32px;padding:40px 0 44px}
+  .hero-art{max-width:420px}
+  .cards{grid-template-columns:1fr}
+  .book-grid{grid-template-columns:repeat(3,1fr)}
+  .faq{grid-template-columns:1fr;gap:24px}
+  .nav{margin-left:0;width:100%;order:3;padding-bottom:4px}
+  .header-inner{flex-wrap:wrap;gap:10px}
+}
+@media (max-width:600px){
+  body{font-size:15.5px}
+  section{padding:42px 0}
+  .book-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .shelf{grid-template-columns:repeat(3,1fr);gap:7px}
+  .nav a{padding:6px 10px;font-size:13.5px}
+  .brand-text{font-size:17px}
+  .download-band{padding:26px 22px}
+  .footer-links{gap:28px}
+}
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="蛙漫官网网页 首页">
+      <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="蛙漫图标">
+        <rect width="64" height="64" rx="14" fill="#1f7a4d"/>
+        <circle cx="24" cy="24" r="6" fill="#e8f7ee"/>
+        <circle cx="42" cy="24" r="6" fill="#e8f7ee"/>
+        <path d="M18 42c4 8 24 8 28 0" stroke="#e8f7ee" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text">蛙漫官网网页</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#read">网页阅读</a>
+      <a href="#shelf">漫画书架</a>
+      <a href="#guide">使用问答</a>
+      <a href="#download">客户端</a>
+      <a class="nav-cta" href="#shelf">开始找漫画</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>网页端 · 无需安装</span>
+        <h1>蛙漫官网网页</h1>
+        <p class="hero-lead">蛙漫官网网页是蛙漫漫画在浏览器中打开的阅读页面。打开链接即可直接翻看漫画，不必先下载客户端；书架、分类和阅读记录都在同一个网页里完成，换设备登录后也能接着上次的进度继续看。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#shelf">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h6v14H4z"/><path d="M14 5h6v14h-6z"/></svg>
+            进入漫画书架
+          </a>
+          <a class="btn btn-ghost" href="#guide">查看使用问答</a>
+        </div>
+        <p class="hero-note">支持手机、平板与电脑浏览器，横竖屏均可阅读。</p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="shelf">
+          <div class="shelf-card">
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice"><rect width="90" height="120" fill="#cfe9da"/><circle cx="45" cy="46" r="20" fill="#1f7a4d" opacity=".85"/><rect x="14" y="82" width="62" height="7" rx="3" fill="#14532f" opacity=".6"/><rect x="22" y="94" width="46" height="5" rx="2.5" fill="#14532f" opacity=".35"/></svg>
+            <span>长篇连载</span>
+          </div>
+          <div class="shelf-card">
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice"><rect width="90" height="120" fill="#e6f1c9"/><path d="M45 22l18 34H27z" fill="#c98a2b" opacity=".8"/><rect x="18" y="74" width="54" height="6" rx="3" fill="#14532f" opacity=".55"/><rect x="26" y="86" width="38" height="5" rx="2.5" fill="#14532f" opacity=".35"/></svg>
+            <span>治愈日常</span>
+          </div>
+          <div class="shelf-card">
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice"><rect width="90" height="120" fill="#d5e3f2"/><rect x="24" y="26" width="42" height="42" rx="10" fill="#4a7ab5" opacity=".8"/><rect x="16" y="80" width="58" height="6" rx="3" fill="#14532f" opacity=".5"/><rect x="26" y="92" width="38" height="5" rx="2.5" fill="#14532f" opacity=".3"/></svg>
+            <span>热血少年</span>
+          </div>
+          <div class="shelf-card">
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice"><rect width="90" height="120" fill="#f2ddd5"/><circle cx="45" cy="42" r="16" fill="#b5624a" opacity=".8"/><path d="M20 66h50" stroke="#14532f" stroke-width="6" stroke-linecap="round" opacity=".5"/><rect x="28" y="84" width="34" height="5" rx="2.5" fill="#14532f" opacity=".3"/></svg>
+            <span>悬疑推理</span>
+          </div>
+          <div class="shelf-card">
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice"><rect width="90" height="120" fill="#d9e8e4"/><path d="M45 20 L64 52 L45 44 L26 52 Z" fill="#1f7a4d" opacity=".8"/><rect x="18" y="72" width="54" height="6" rx="3" fill="#14532f" opacity=".5"/><rect x="26" y="84" width="38" height="5" rx="2.5" fill="#14532f" opacity=".3"/></svg>
+            <span>奇幻冒险</span>
+          </div>
+          <div class="shelf-card">
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice"><rect width="90" height="120" fill="#efe6f2"/><rect x="26" y="24" width="38" height="30" rx="6" fill="#7a5a8c" opacity=".8"/><path d="M22 68h46" stroke="#14532f" stroke-width="6" stroke-linecap="round" opacity=".5"/><rect x="28" y="84" width="34" height="5" rx="2.5" fill="#14532f" opacity=".3"/></svg>
+            <span>都市情感</span>
+          </div>
+        </div>
+        <p class="cap">书架示例 · 分类与入口在页面内可直接浏览</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 网页阅读方式 -->
+  <section id="read">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-kicker">Reading</div>
+        <h2>在蛙漫官网网页里怎么读</h2>
+        <p>网页版把阅读需要的几步压缩在同一屏内：找到作品、打开章节、调整翻页。下面三件事是第一次使用蛙漫官网网页时最常遇到的环节。</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          </div>
+          <h3>搜索与分类双通道</h3>
+          <p>记得名字就输入书名关键词，记不清就用题材分类逐层翻。蛙漫官网网页的搜索框在书架区顶部，输入后即时过滤已展示的作品卡片。</p>
+        </article>
+        <article class="card">
+          <div class="card-ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h9a3 3 0 013 3v11H7a3 3 0 01-3-3z"/><path d="M20 5h-2"/><path d="M16 8h4"/><path d="M16 12h4"/></svg>
+          </div>
+          <h3>条漫与页漫两种翻法</h3>
+          <p>竖向条漫适合连续下滑，传统页漫按页翻。网页端会依据作品本身的排版给出对应阅读方式，切换时不必重新进入作品。</p>
+        </article>
+        <article class="card">
+          <div class="card-ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.6-7 9-7 9z"/></svg>
+          </div>
+          <h3>书架与进度留存</h3>
+          <p>把作品加入书架后，下次打开蛙漫官网网页可以直接从书架继续。阅读进度按账号同步，未登录时仅保留在本机浏览器。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 书架区 -->
+  <section id="shelf" class="bookcase">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-kicker">Bookcase</div>
+        <h2>漫画书架 · 按题材浏览</h2>
+        <p>下面是书架区的展示样式，可先按题材筛选，再用关键词搜索。蛙漫官网网页的正式书架会在此基础上展示完整书目。</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <input id="bookSearch" type="search" placeholder="输入书名或题材关键词" aria-label="搜索漫画">
+          <button type="button" id="searchBtn">搜索</button>
+        </div>
+        <div class="chips" role="group" aria-label="题材筛选">
+          <button class="chip active" data-genre="all" type="button">全部</button>
+          <button class="chip" data-genre="连载" type="button">连载</button>
+          <button class="chip" data-genre="日常" type="button">日常</button>
+          <button class="chip" data-genre="热血" type="button">热血</button>
+          <button class="chip" data-genre="悬疑" type="button">悬疑</button>
+          <button class="chip" data-genre="奇幻" type="button">奇幻</button>
+        </div>
+      </div>
+
+      <div class="book-grid" id="bookGrid">
+        <article class="book" data-genre="连载 热血" data-title="长夜巡守">
+          <div class="book-cover">
+            <span class="tag">连载</span>
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="90" height="120" fill="#cfe9da"/><circle cx="45" cy="46" r="21" fill="#1f7a4d" opacity=".85"/><rect x="16" y="84" width="58" height="6" rx="3" fill="#14532f" opacity=".5"/></svg>
+          </div>
+          <div class="book-meta">
+            <h4>长夜巡守</h4>
+            <p>热血 · 少年成长</p>
+          </div>
+        </article>
+
+        <article class="book" data-genre="日常" data-title="午后三点的面包房">
+          <div class="book-cover">
+            <span class="tag">日常</span>
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="90" height="120" fill="#e6f1c9"/><path d="M45 22l18 34H27z" fill="#c98a2b" opacity=".8"/><rect x="18" y="76" width="54" height="6" rx="3" fill="#14532f" opacity=".5"/></svg>
+          </div>
+          <div class="book-meta">
+            <h4>午后三点的面包房</h4>
+            <p>日常 · 治愈</p>
+          </div>
+        </article>
+
+        <article class="book" data-genre="悬疑" data-title="第七扇窗">
+          <div class="book-cover">
+            <span class="tag">悬疑</span>
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="90" height="120" fill="#d5e3f2"/><rect x="24" y="26" width="42" height="42" rx="6" fill="#4a7ab5" opacity=".8"/><rect x="16" y="80" width="58" height="6" rx="3" fill="#14532f" opacity=".5"/></svg>
+          </div>
+          <div class="book-meta">
+            <h4>第七扇窗</h4>
+            <p>悬疑 · 推理</p>
+          </div>
+        </article>
+
+        <article class="book" data-genre="奇幻" data-title="浮岛邮差">
+          <div class="book-cover">
+            <span class="tag">奇幻</span>
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="90" height="120" fill="#d9e8e4"/><path d="M45 20 L64 52 L45 44 L26 52 Z" fill="#1f7a4d" opacity=".8"/><rect x="18" y="72" width="54" height="6" rx="3" fill="#14532f" opacity=".5"/></svg>
+          </div>
+          <div class="book-meta">
+            <h4>浮岛邮差</h4>
+            <p>奇幻 · 冒险</p>
+          </div>
+        </article>
+
+        <article class="book" data-genre="日常 连载" data-title="楼下有只猫">
+          <div class="book-cover">
+            <span class="tag">连载</span>
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="90" height="120" fill="#f2ddd5"/><circle cx="45" cy="42" r="16" fill="#b5624a" opacity=".8"/><path d="M20 66h50" stroke="#14532f" stroke-width="6" stroke-linecap="round" opacity=".5"/></svg>
+          </div>
+          <div class="book-meta">
+            <h4>楼下有只猫</h4>
+            <p>日常 · 温情</p>
+          </div>
+        </article>
+
+        <article class="book" data-genre="热血 奇幻" data-title="铁砧与火星">
+          <div class="book-cover">
+            <span class="tag">热血</span>
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="90" height="120" fill="#efe6f2"/><rect x="26" y="24" width="38" height="30" rx="6" fill="#7a5a8c" opacity=".8"/><path d="M22 68h46" stroke="#14532f" stroke-width="6" stroke-linecap="round" opacity=".5"/></svg>
+          </div>
+          <div class="book-meta">
+            <h4>铁砧与火星</h4>
+            <p>热血 · 奇幻</p>
+          </div>
+        </article>
+
+        <article class="book" data-genre="悬疑 连载" data-title="回声档案">
+          <div class="book-cover">
+            <span class="tag">悬疑</span>
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="90" height="120" fill="#dce6ee"/><path d="M30 40h30v40H30z" fill="#4a7ab5" opacity=".7"/><rect x="20" y="86" width="50" height="6" rx="3" fill="#14532f" opacity=".45"/></svg>
+          </div>
+          <div class="book-meta">
+            <h4>回声档案</h4>
+            <p>悬疑 · 连载中</p>
+          </div>
+        </article>
+
+        <article class="book" data-genre="日常 奇幻" data-title="云上杂货铺">
+          <div class="book-cover">
+            <span class="tag">日常</span>
+            <svg viewBox="0 0 90 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="90" height="120" fill="#e8f1f5"/><circle cx="38" cy="38" r="14" fill="#8fb8c9" opacity=".85"/><circle cx="56" cy="44" r="10" fill="#8fb8c9" opacity=".6"/><rect x="18" y="82" width="54" height="6" rx="3" fill="#14532f" opacity=".45"/></svg>
+          </div>
+          <div class="book-meta">
+            <h4>云上杂货铺</h4>
+            <p>日常 · 奇幻</p>
+          </div>
+        </article>
+      </div>
+      <p class="empty-hint" id="emptyHint">没有匹配的作品，换个关键词或点“全部”再试试。</p>
+    </div>
+  </section>
+
+  <!-- 使用问答 -->
+  <section id="guide">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-kicker">Q &amp; A</div>
+        <h2>蛙漫官网网页常见问题</h2>
+        <p>整理了几条访问蛙漫官网网页时最常被问到的内容，涉及打开方式、账号与进度、页面显示三类情况。</p>
+      </div>
+
+      <div class="faq">
+        <div class="faq-list">
+          <details open>
+            <summary>蛙漫官网网页需要下载软件吗？</summary>
+            <p>不需要。蛙漫官网网页直接运行在浏览器中，打开网址即可阅读，安卓、iOS 与桌面浏览器都适用。若希望离线缓存或获得更稳定的翻页体验，可另装客户端，两者账号互通。</p>
+          </details>
+          <details>
+            <summary>为什么网页上的阅读进度和手机上不一致？</summary>
+            <p>进度同步依赖登录状态。未登录时，蛙漫官网网页只把进度写在本机浏览器里，清理缓存或换设备后就看不到了。登录同一账号后，书架与进度会在各端对齐。</p>
+          </details>
+          <details>
+            <summary>图片加载慢或横屏显示不完整怎么办？</summary>
+            <p>先确认网络稳定，再尝试刷新页面。横屏阅读时，浏览器地址栏会占用一部分高度，可向下轻扫让地址栏收起。若仍显示异常，可换用较新版本的主流浏览器访问蛙漫官网网页。</p>
+          </details>
+          <details>
+            <summary>书架里的作品会自己更新吗？</summary>
+            <p>书架按作品展示，更新状态以作品页显示为准。在蛙漫官网网页打开书架后，有新章节的作品会标注更新提示，点进去即可看到最新一话。</p>
+          </details>
+        </div>
+
+        <aside class="faq-side">
+          <h3>使用前值得知道的</h3>
+          <ul>
+            <li>网页端与客户端共用同一账号体系，收藏不重复。</li>
+            <li>搜索支持书名与题材关键词，输入后即时过滤。</li>
+            <li>条漫向下滑动，页漫左右翻页，方式由作品决定。</li>
+            <li>建议把书架页加入浏览器书签，下次一键回到蛙漫官网网页。</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 下载条 -->
+  <section id="download" style="padding-top:0">
+    <div class="wrap">
+      <div class="download-band">
+        <div>
+          <h2>蛙漫客户端</h2>
+          <p>希望离线缓存、减少翻页等待时，可以装一个客户端；日常随手翻看，直接用蛙漫官网网页即可，无需安装。</p>
+        </div>
+        <a class="btn btn-download" href="#" data-download-placeholder="true" aria-disabled="true" tabindex="-1">下载</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand">
+          <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="蛙漫图标">
+            <rect width="64" height="64" rx="14" fill="#1f7a4d"/>
+            <circle cx="24" cy="24" r="6" fill="#e8f7ee"/>
+            <circle cx="42" cy="24" r="6" fill="#e8f7ee"/>
+            <path d="M18 42c4 8 24 8 28 0" stroke="#e8f7ee" stroke-width="4" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="brand-text">蛙漫官网网页</span>
+        </div>
+        <p>蛙漫官网网页的浏览器阅读说明页，介绍网页端的搜索、书架、阅读方式与常见问题，方便读者快速找到想看的漫画。</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>站内导航</h4>
+          <a href="#read">网页阅读</a>
+          <a href="#shelf">漫画书架</a>
+          <a href="#guide">使用问答</a>
+          <a href="#download">客户端</a>
+        </div>
+        <div class="footer-col">
+          <h4>题材入口</h4>
+          <a href="#shelf">长篇连载</a>
+          <a href="#shelf">治愈日常</a>
+          <a href="#shelf">热血少年</a>
+          <a href="#shelf">悬疑推理</a>
+        </div>
+      </div>
+    </div>
+    <p class="copyright">蛙漫官网网页 · 页面内容用于说明网页端阅读方式，作品信息以站内实际展示为准。</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var grid = document.getElementById('bookGrid');
+  var books = Array.prototype.slice.call(grid.querySelectorAll('.book'));
+  var input = document.getElementById('bookSearch');
+  var emptyHint = document.getElementById('emptyHint');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var currentGenre = 'all';
+
+  function applyFilter(){
+    var kw = input.value.trim().toLowerCase();
+    var visible = 0;
+    books.forEach(function(b){
+      var title = (b.getAttribute('data-title') || '').toLowerCase();
+      var genre = b.getAttribute('data-genre') || '';
+      var matchKw = !kw || title.indexOf(kw) > -1 || genre.toLowerCase().indexOf(kw) > -1;
+      var matchGenre = currentGenre === 'all' || genre.indexOf(currentGenre) > -1;
+      var show = matchKw && matchGenre;
+      b.style.display = show ? '' : 'none';
+      if(show) visible++;
+    });
+    emptyHint.classList.toggle('show', visible === 0);
+  }
+
+  input.addEventListener('input', applyFilter);
+  document.getElementById('searchBtn').addEventListener('click', applyFilter);
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      currentGenre = chip.getAttribute('data-genre');
+      applyFilter();
+    });
+  });
+})();
+</script>
+
+</body>
+                                                                                                </html>
