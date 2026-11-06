@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电影蜜蜂-电影蜜蜂在线影视资源导航_高清电影观看入口</title>
+<meta name="description" content="电影蜜蜂是面向影视爱好者的资源导航首页，汇总高清电影、剧集与观影入口，提供分类浏览、热度排序与快速检索，帮你在电影蜜蜂快速找到想看的片源与播放线路。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141a26'/%3E%3Ccircle cx='32' cy='30' r='14' fill='%23ffc93c'/%3E%3Crect x='26' y='20' width='12' height='20' rx='3' fill='%23141a26'/%3E%3Crect x='24' y='46' width='16' height='5' rx='2.5' fill='%23ffc93c'/%3E%3Cpath d='M20 16l-6-6M44 16l6-6' stroke='%23ffc93c' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0f131c;
+  --bg2:#161d2b;
+  --card:#1b2436;
+  --line:#28324a;
+  --text:#e8ecf5;
+  --muted:#98a4bd;
+  --gold:#ffc93c;
+  --gold2:#ffdd7a;
+  --teal:#4fd1c5;
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+.wrap{width:min(1160px,92%);margin:0 auto}
+
+/* 页头 */
+header.site{
+  position:sticky;top:0;z-index:50;
+  background:rgba(15,19,28,.88);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 0}
+.logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;letter-spacing:.5px}
+.logo .mark{
+  width:38px;height:38px;border-radius:11px;
+  background:linear-gradient(145deg,#ffc93c,#ff9d2e);
+  display:grid;place-items:center;flex:none;
+  box-shadow:0 4px 14px rgba(255,201,60,.28);
+}
+.logo .mark svg{width:24px;height:24px}
+nav.main{display:flex;gap:22px;font-size:15px;color:var(--muted);flex-wrap:wrap}
+nav.main a:hover{color:var(--gold2)}
+.head-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:#1a1300;font-weight:700;font-size:14px;
+  padding:9px 18px;border-radius:999px;white-space:nowrap;
+  transition:transform .18s,box-shadow .18s;
+}
+.head-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,201,60,.35)}
+
+/* 首屏 */
+.hero{
+  position:relative;overflow:hidden;
+  padding:58px 0 46px;
+  background:
+    radial-gradient(760px 340px at 82% -10%,rgba(255,201,60,.16),transparent 70%),
+    radial-gradient(600px 300px at 8% 110%,rgba(79,209,197,.12),transparent 70%),
+    linear-gradient(180deg,#111726,#0f131c);
+  border-bottom:1px solid var(--line);
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--gold2);
+  border:1px solid rgba(255,201,60,.35);
+  background:rgba(255,201,60,.08);
+  padding:5px 13px;border-radius:999px;margin-bottom:18px;
+}
+h1{
+  font-size:clamp(30px,4.4vw,46px);
+  line-height:1.22;font-weight:800;letter-spacing:.5px;margin-bottom:16px;
+}
+h1 em{font-style:normal;color:var(--gold)}
+.hero p.lead{color:var(--muted);font-size:16px;max-width:36em;margin-bottom:26px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:9px;
+  background:linear-gradient(145deg,#ffc93c,#ffa92e);color:#1a1300;
+  font-weight:800;font-size:15px;padding:13px 26px;border-radius:12px;
+  transition:transform .18s,box-shadow .18s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(255,201,60,.32)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--line);color:var(--text);
+  font-size:15px;padding:12px 22px;border-radius:12px;background:rgba(255,255,255,.03);
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold2)}
+.dl-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px dashed rgba(255,201,60,.55);color:var(--gold2);
+  font-size:14px;padding:10px 18px;border-radius:12px;
+  background:rgba(255,201,60,.06);
+  pointer-events:none;opacity:.85;
+}
+.hero-stats{display:flex;gap:30px;margin-top:34px;flex-wrap:wrap}
+.hero-stats div b{display:block;font-size:22px;color:var(--gold);font-weight:800;line-height:1.3}
+.hero-stats div span{font-size:13px;color:var(--muted)}
+.hero-art{
+  position:relative;border-radius:22px;overflow:hidden;
+  border:1px solid var(--line);
+  background:linear-gradient(160deg,#1d2637,#131a27);
+  padding:26px;
+}
+.hero-art .reel{width:100%;height:auto}
+.hero-art .tag{
+  position:absolute;right:16px;bottom:16px;
+  font-size:12px;color:var(--muted);
+  background:rgba(15,19,28,.72);border:1px solid var(--line);
+  padding:5px 11px;border-radius:999px;
+}
+
+/* 通用区块 */
+section.block{padding:54px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:26px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(21px,2.6vw,27px);font-weight:800;letter-spacing:.4px}
+.sec-head h2 span{color:var(--gold)}
+.sec-head p{color:var(--muted);font-size:14px;max-width:44em}
+.divider{height:1px;background:linear-gradient(90deg,var(--line),transparent);margin-top:14px}
+
+/* 检索条 */
+.searchbar{
+  display:flex;gap:10px;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:14px;margin-bottom:26px;
+}
+.searchbar input{
+  flex:1 1 220px;min-width:0;
+  background:#111827;border:1px solid var(--line);color:var(--text);
+  border-radius:10px;padding:11px 14px;font-size:15px;font-family:inherit;outline:none;
+}
+.searchbar input:focus{border-color:var(--gold)}
+.searchbar select{
+  background:#111827;border:1px solid var(--line);color:var(--text);
+  border-radius:10px;padding:11px 12px;font-size:14px;font-family:inherit;outline:none;
+}
+.searchbar button{
+  background:var(--gold);border:0;color:#1a1300;font-weight:700;
+  padding:11px 24px;border-radius:10px;font-size:15px;font-family:inherit;cursor:pointer;
+}
+.searchbar button:hover{background:var(--gold2)}
+.search-hint{font-size:13px;color:var(--muted);margin:-14px 0 22px}
+
+/* 卡片网格 */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:22px;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+  display:flex;flex-direction:column;gap:10px;
+}
+.card:hover{transform:translateY(-3px);border-color:rgba(255,201,60,.5);box-shadow:0 12px 28px rgba(0,0,0,.32)}
+.card .ico{
+  width:42px;height:42px;border-radius:12px;flex:none;
+  display:grid;place-items:center;
+  background:rgba(255,201,60,.12);color:var(--gold);
+}
+.card .ico svg{width:22px;height:22px}
+.card h3{font-size:17px;font-weight:700}
+.card p{font-size:14px;color:var(--muted)}
+.card .more{font-size:13px;color:var(--gold2);margin-top:auto}
+
+/* 热榜 */
+.rank-list{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rank-item{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:14px 16px;
+  transition:border-color .2s;
+}
+.rank-item:hover{border-color:rgba(255,201,60,.5)}
+.rank-no{
+  font-size:19px;font-weight:800;color:var(--muted);
+  width:30px;flex:none;text-align:center;font-variant-numeric:tabular-nums;
+}
+.rank-item:nth-child(-n+3) .rank-no{color:var(--gold)}
+.rank-body{min-width:0;flex:1}
+.rank-body b{display:block;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-body span{font-size:13px;color:var(--muted)}
+.rank-tag{
+  font-size:12px;color:var(--teal);border:1px solid rgba(79,209,197,.35);
+  background:rgba(79,209,197,.08);border-radius:999px;padding:2px 10px;flex:none;
+}
+
+/* 分类 */
+.cats{display:flex;flex-wrap:wrap;gap:10px}
+.cats a{
+  font-size:14px;color:var(--muted);
+  border:1px solid var(--line);background:var(--bg2);
+  padding:8px 16px;border-radius:999px;
+}
+.cats a:hover{color:var(--gold2);border-color:rgba(255,201,60,.5)}
+
+/* 正文双栏 */
+.two-col{display:grid;grid-template-columns:1.4fr .6fr;gap:34px;align-items:start}
+.prose h2{font-size:23px;margin-bottom:14px;font-weight:800}
+.prose h2 span{color:var(--gold)}
+.prose p{color:#c3cbdc;font-size:15px;margin-bottom:14px}
+.prose p a{color:var(--gold2);border-bottom:1px dotted rgba(255,201,60,.5)}
+.side-box{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:22px;
+}
+.side-box h3{font-size:16px;margin-bottom:12px;color:var(--gold)}
+.side-box ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.side-box li{font-size:14px;color:var(--muted);display:flex;gap:8px}
+.side-box li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);margin-top:9px;flex:none}
+
+/* 步骤 */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:var(--radius);padding:22px;position:relative;
+}
+.step b.no{
+  display:inline-grid;place-items:center;
+  width:30px;height:30px;border-radius:9px;
+  background:rgba(255,201,60,.14);color:var(--gold);
+  font-size:15px;margin-bottom:12px;
+}
+.step h3{font-size:16px;margin-bottom:8px}
+.step p{font-size:14px;color:var(--muted)}
+
+/* FAQ */
+.faq details{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:16px 20px;margin-bottom:12px;
+}
+.faq details[open]{border-color:rgba(255,201,60,.45)}
+.faq summary{
+  cursor:pointer;font-size:15px;font-weight:600;list-style:none;
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--gold);font-size:19px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq p{font-size:14px;color:var(--muted);margin-top:10px}
+
+/* 页尾 */
+footer.site{
+  border-top:1px solid var(--line);background:#0c1017;
+  padding:38px 0 30px;margin-top:20px;
+}
+.foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:26px}
+.foot-brand{max-width:34em}
+.foot-brand .logo{margin-bottom:12px}
+.foot-brand p{font-size:14px;color:var(--muted)}
+.foot-links{display:flex;gap:44px;flex-wrap:wrap}
+.foot-links div h4{font-size:14px;margin-bottom:10px;color:var(--text)}
+.foot-links ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-links a{font-size:13.5px;color:var(--muted)}
+.foot-links a:hover{color:var(--gold2)}
+.foot-bottom{
+  border-top:1px solid var(--line);padding-top:18px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:13px;color:#6f7b93;
+}
+
+/* 响应式 */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .hero-art{order:-1;padding:18px}
+  .grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  nav.main{display:none}
+}
+@media (max-width:620px){
+  .grid{grid-template-columns:1fr}
+  .rank-list{grid-template-columns:1fr}
+  .hero{padding:38px 0 34px}
+  .hero-stats{gap:22px}
+  .head-cta{padding:8px 14px;font-size:13px}
+  .logo{font-size:17px}
+  .logo .mark{width:34px;height:34px}
+  .searchbar button{width:100%}
+  section.block{padding:40px 0}
+  .foot-links{gap:28px}
+}
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap head-in">
+    <a class="logo" href="#top" aria-label="电影蜜蜂首页">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="30" r="15" fill="#141a26"/>
+          <circle cx="32" cy="30" r="4.2" fill="#ffc93c"/>
+          <circle cx="32" cy="19" r="2.6" fill="#ffc93c"/>
+          <circle cx="32" cy="41" r="2.6" fill="#ffc93c"/>
+          <circle cx="21" cy="30" r="2.6" fill="#ffc93c"/>
+          <circle cx="43" cy="30" r="2.6" fill="#ffc93c"/>
+          <path d="M22 48l-8 8M42 48l8 8" stroke="#141a26" stroke-width="3.4" stroke-linecap="round"/>
+        </svg>
+      </span>
+      电影蜜蜂
+    </a>
+    <nav class="main" aria-label="主导航">
+      <a href="#pick">精选片单</a>
+      <a href="#rank">热度榜</a>
+      <a href="#cats">分类</a>
+      <a href="#guide">观影路径</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <a class="head-cta" href="#pick">开始找片</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">影视资源导航 · 高清观影入口</span>
+        <h1>电影蜜蜂</h1>
+        <p class="lead">电影蜜蜂是一个面向影视爱好者的资源导航首页：把分散的电影、剧集与播放线路收拢到一处，用分类、热度与检索帮你更快决定今晚看什么、去哪里看。</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#pick">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            浏览精选片单
+          </a>
+          <a class="btn-ghost" href="#rank">查看热度榜</a>
+          <a class="dl-btn" href="#" data-download-placeholder="true" aria-disabled="true" tabindex="-1">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+            下载
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div><b>5</b><span>主分类频道</span></div>
+          <div><b>3</b><span>检索维度</span></div>
+          <div><b>每日</b><span>更新片单</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg class="reel" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffc93c"/><stop offset="1" stop-color="#ff9d2e"/>
+            </linearGradient>
+          </defs>
+          <rect x="14" y="26" width="332" height="180" rx="16" fill="#0f131c" stroke="#28324a"/>
+          <rect x="34" y="48" width="120" height="136" rx="10" fill="#1b2436"/>
+          <circle cx="94" cy="116" r="34" fill="none" stroke="url(#g1)" stroke-width="6"/>
+          <circle cx="94" cy="116" r="7" fill="url(#g1)"/>
+          <circle cx="94" cy="86" r="5" fill="#28324a"/>
+          <circle cx="94" cy="146" r="5" fill="#28324a"/>
+          <circle cx="64" cy="116" r="5" fill="#28324a"/>
+          <circle cx="124" cy="116" r="5" fill="#28324a"/>
+          <rect x="174" y="56" width="152" height="12" rx="6" fill="#28324a"/>
+          <rect x="174" y="80" width="118" height="10" rx="5" fill="#222c41"/>
+          <rect x="174" y="100" width="140" height="10" rx="5" fill="#222c41"/>
+          <rect x="174" y="128" width="66" height="26" rx="13" fill="url(#g1)"/>
+          <rect x="252" y="128" width="66" height="26" rx="13" fill="none" stroke="#28324a" stroke-width="2"/>
+          <rect x="34" y="196" width="292" height="8" rx="4" fill="#222c41"/>
+          <rect x="34" y="196" width="196" height="8" rx="4" fill="url(#g1)"/>
+        </svg>
+        <span class="tag">电影蜜蜂 · 片源导航面板</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 精选片单 + 检索 -->
+  <section class="block" id="pick">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>精选片单<span> · 今天先看这几部</span></h2>
+          <p>按观影场景整理的四类入口，每类给出可直接点开的片单方向，在电影蜜蜂里先定类型，再定片名。</p>
+        </div>
+      </div>
+
+      <form class="searchbar" role="search" onsubmit="return false;">
+        <input id="kw" type="search" placeholder="输入片名、导演或演员，例如：星际 / 奉俊昊" aria-label="搜索片名">
+        <select id="type" aria-label="内容类型">
+          <option value="">全部类型</option>
+          <option value="movie">电影</option>
+          <option value="series">剧集</option>
+          <option value="doc">纪录片</option>
+          <option value="anim">动画</option>
+        </select>
+        <select id="sort" aria-label="排序方式">
+          <option value="hot">按热度</option>
+          <option value="new">按上新</option>
+          <option value="score">按评分</option>
+        </select>
+        <button type="button" id="go">检索</button>
+      </form>
+      <p class="search-hint" id="hint">提示：检索结果会在下方片单卡片中即时过滤，类型与排序同时生效。</p>
+
+      <div class="grid" id="pool">
+        <article class="card" data-type="movie" data-key="星际穿越 诺兰 科幻 太空" data-hot="96" data-new="88" data-score="94">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span>
+          <h3>科幻与太空</h3>
+          <p>《星际穿越》一类硬核太空片打头，适合想要视听冲击与长线思考的夜晚，播放线路以高清版本为主。</p>
+          <span class="more">进入片单 →</span>
+        </article>
+        <article class="card" data-type="series" data-key="悬疑 剧集 犯罪 反转" data-hot="92" data-new="90" data-score="89">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          <h3>悬疑剧集</h3>
+          <p>多集叙事的犯罪与反转题材，适合连看。剧集条目会标注季数与更新状态，避免点进半截内容。</p>
+          <span class="more">进入片单 →</span>
+        </article>
+        <article class="card" data-type="doc" data-key="纪录片 自然 人文 真实" data-hot="78" data-new="82" data-score="91">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V6a2 2 0 0 1 2-2h9l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 4v6h6"/></svg></span>
+          <h3>纪录片专场</h3>
+          <p>自然、人文与真实事件三条支线，节奏相对舒缓，适合作为背景播放或家庭共看的内容。</p>
+          <span class="more">进入片单 →</span>
+        </article>
+        <article class="card" data-type="anim" data-key="动画 家庭 治愈 日本" data-hot="85" data-new="86" data-score="90">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M8.5 15c1 1 2.2 1.5 3.5 1.5s2.5-.5 3.5-1.5"/></svg></span>
+          <h3>动画与治愈</h3>
+          <p>面向家庭与轻量观影需求，画风温和、时长友好，适合周末午后与孩子一起挑一部。</p>
+          <span class="more">进入片单 →</span>
+        </article>
+        <article class="card" data-type="movie" data-key="经典 老片 修复 黑白" data-hot="74" data-new="60" data-score="93">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M4 10h3M4 14h3M17 10h3M17 14h3"/></svg></span>
+          <h3>经典修复</h3>
+          <p>老片修复与影史常看榜，画质版本会注明，方便对画幅与字幕版本有要求的观众先行确认。</p>
+          <span class="more">进入片单 →</span>
+        </article>
+        <article class="card" data-type="series" data-key="短剧 轻喜剧 都市 下饭" data-hot="88" data-new="94" data-score="84">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span>
+          <h3>下饭轻喜剧</h3>
+          <p>单集时长短、情节轻快，适合吃饭或通勤时看，更新节奏稳定，不必担心追不上进度。</p>
+          <span class="more">进入片单 →</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 热度榜 -->
+  <section class="block" id="rank" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>站内<span>热度榜</span></h2>
+          <p>依据页面点击与检索行为排序，反映近期访问者的实际选择，排名每天刷新一次。</p>
+        </div>
+      </div>
+      <div class="rank-list">
+        <a class="rank-item" href="#pick"><span class="rank-no">1</span><span class="rank-body"><b>星际穿越</b><span>科幻 · 电影 · 高清线路</span></span><span class="rank-tag">热度高</span></a>
+        <a class="rank-item" href="#pick"><span class="rank-no">2</span><span class="rank-body"><b>悬疑剧集合集</b><span>剧集 · 多季连看</span></span><span class="rank-tag">连看</span></a>
+        <a class="rank-item" href="#pick"><span class="rank-no">3</span><span class="rank-body"><b>自然纪录片精选</b><span>纪录片 · 家庭共看</span></span><span class="rank-tag">口碑稳</span></a>
+        <a class="rank-item" href="#pick"><span class="rank-no">4</span><span class="rank-body"><b>治愈系动画</b><span>动画 · 周末午后</span></span><span class="rank-tag">轻松</span></a>
+        <a class="rank-item" href="#pick"><span class="rank-no">5</span><span class="rank-body"><b>经典修复计划</b><span>电影 · 影史常看</span></span><span class="rank-tag">画质佳</span></a>
+        <a class="rank-item" href="#pick"><span class="rank-no">6</span><span class="rank-body"><b>都市轻喜剧</b><span>剧集 · 短集下饭</span></span><span class="rank-tag">更新勤</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 分类 -->
+  <section class="block" id="cats">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>按<span>分类</span>浏览</h2>
+          <p>电影蜜蜂把内容拆成便于决策的标签，先缩小范围，再进入具体条目。</p>
+        </div>
+      </div>
+      <div class="cats">
+        <a href="#pick">动作</a>
+        <a href="#pick">科幻</a>
+        <a href="#pick">悬疑</a>
+        <a href="#pick">犯罪</a>
+        <a href="#pick">喜剧</a>
+        <a href="#pick">爱情</a>
+        <a href="#pick">动画</a>
+        <a href="#pick">纪录片</a>
+        <a href="#pick">剧集</a>
+        <a href="#pick">经典修复</a>
+        <a href="#pick">家庭共看</a>
+        <a href="#pick">短剧</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 正文说明 + 侧栏 -->
+  <section class="block" id="guide" style="background:var(--bg2);border-top:1px solid var(--line);">
+    <div class="wrap two-col">
+      <div class="prose">
+        <h2>电影蜜蜂的<span>使用方式</span></h2>
+        <p>电影蜜蜂本身不设播放器，它做的事情是把片名、类型、线路与更新状态整理成可读的导航条目。访问者通常带着两种目的进来：已经知道想看的片名，需要快速找到可用的高清线路；或者只知道大致心情，需要在有限时间里挑出一部。</p>
+        <p>针对第一种需求，首屏检索框支持片名、导演与演员关键词，配合类型和排序两个维度收窄结果。结果直接在当前页面的片单卡片上过滤，不需要跳转，也不会把内容藏进二级页。针对第二种需求，精选片单按观影场景分成科幻、悬疑、纪录片、动画等方向，每张卡片写清适合的时段与人群。</p>
+        <p>站内热度榜是另一种入口。它依据近期点击与检索行为排序，每天刷新，能反映访问者正在看什么，但它不代表作品质量的绝对评价。片单里的顺序更多考虑场景匹配，比如纪录片被放在家庭共看的场景下，而不是按评分高低排列。</p>
+        <p>使用电影蜜蜂时，建议先确认版本信息：画幅、字幕、季数是否完整。这些字段会写在条目说明里，避免看到一半才发现不是想要的版本。若某条线路失效，可通过页面反馈入口告知，维护会按批次处理。电影蜜蜂的目标是让找片这一步足够短，把时间留给观看本身。</p>
+      </div>
+      <aside class="side-box">
+        <h3>观影前检查清单</h3>
+        <ul>
+          <li>确认片名与年份，避免同名混淆</li>
+          <li>查看画幅与字幕版本说明</li>
+          <li>剧集需核对季数与更新状态</li>
+          <li>优先选择标注高清的线路</li>
+          <li>线路失效可提交反馈</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 步骤 -->
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>三步<span>完成一次找片</span></h2>
+          <p>从进入到开看，路径保持在同一个页面内完成。</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <b class="no">1</b>
+          <h3>定方向</h3>
+          <p>用分类标签或精选片单先确定类型与场景，缩小可选范围，减少反复翻页。</p>
+        </div>
+        <div class="step">
+          <b class="no">2</b>
+          <h3>核版本</h3>
+          <p>在条目说明里确认画幅、字幕、季数与更新时间，确保拿到的是完整版本。</p>
+        </div>
+        <div class="step">
+          <b class="no">3</b>
+          <h3>选线路</h3>
+          <p>优先选择标注高清且近期可用的线路，遇到失效线路按提示反馈即可。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="block faq" id="faq" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>关于电影蜜蜂的<span>常见问题</span></h2>
+        </div>
+      </div>
+      <details open>
+        <summary>电影蜜蜂是播放站点吗？</summary>
+        <p>不是。电影蜜蜂是资源导航页，负责整理片名、类型、线路与更新状态，播放行为在对应线路页面完成。</p>
+      </details>
+      <details>
+        <summary>热度榜排名代表作品评分吗？</summary>
+        <p>不代表。热度榜依据近期点击与检索行为排序，每天刷新，只反映访问者关注度，与作品质量评价是两回事。</p>
+      </details>
+      <details>
+        <summary>找不到想看的片怎么办？</summary>
+        <p>可以先用片名、导演或演员关键词检索；仍无结果时，说明该条目尚未收录，可通过反馈入口提交片名。</p>
+      </details>
+      <details>
+        <summary>下载入口现在可用吗？</summary>
+        <p>当前下载入口处于占位状态，尚未开放实际文件。页面会保留该入口位置，后续替换为真实地址后即可使用。</p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a class="logo" href="#top">
+          <span class="mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="30" r="15" fill="#141a26"/>
+              <circle cx="32" cy="30" r="4.2" fill="#ffc93c"/>
+              <circle cx="32" cy="19" r="2.6" fill="#ffc93c"/>
+              <circle cx="32" cy="41" r="2.6" fill="#ffc93c"/>
+              <circle cx="21" cy="30" r="2.6" fill="#ffc93c"/>
+              <circle cx="43" cy="30" r="2.6" fill="#ffc93c"/>
+              <path d="M22 48l-8 8M42 48l8 8" stroke="#141a26" stroke-width="3.4" stroke-linecap="round"/>
+            </svg>
+          </span>
+          电影蜜蜂
+        </a>
+        <p>电影蜜蜂为影视爱好者提供片单导航、热度参考与版本核对信息，帮助你在有限时间里更快找到想看的电影与剧集。</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>浏览</h4>
+          <ul>
+            <li><a href="#pick">精选片单</a></li>
+            <li><a href="#rank">热度榜</a></li>
+            <li><a href="#cats">分类标签</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>使用</h4>
+          <ul>
+            <li><a href="#guide">使用方式</a></li>
+            <li><a href="#faq">常见问题</a></li>
+            <li><a href="#top">返回顶部</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2024 电影蜜蜂 · 影视资源导航</span>
+      <span>页面内容为导航信息整理，不存储任何视频文件</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var kw = document.getElementById('kw');
+  var type = document.getElementById('type');
+  var sort = document.getElementById('sort');
+  var hint = document.getElementById('hint');
+  var pool = document.getElementById('pool');
+  var cards = Array.prototype.slice.call(pool.querySelectorAll('.card'));
+
+  function apply(){
+    var q = kw.value.trim().toLowerCase();
+    var t = type.value;
+    var s = sort.value;
+    var shown = 0;
+    cards.forEach(function(c){
+      var key = (c.getAttribute('data-key') || '') + ' ' + c.querySelector('h3').textContent;
+      var okKw = !q || key.toLowerCase().indexOf(q) > -1;
+      var okType = !t || c.getAttribute('data-type') === t;
+      var visible = okKw && okType;
+      c.style.display = visible ? '' : 'none';
+      if(visible) shown++;
+    });
+    var sorted = cards.slice().sort(function(a,b){
+      return (+b.getAttribute('data-'+s)) - (+a.getAttribute('data-'+s));
+    });
+    sorted.forEach(function(c){ pool.appendChild(c); });
+    hint.textContent = q || t
+      ? '当前筛选显示 ' + shown + ' 个片单方向，排序：' + (s === 'hot' ? '热度' : s === 'new' ? '上新' : '评分') + '。'
+      : '提示：检索结果会在下方片单卡片中即时过滤，类型与排序同时生效。';
+  }
+
+  document.getElementById('go').addEventListener('click', apply);
+  kw.addEventListener('input', apply);
+  kw.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); apply(); } });
+  type.addEventListener('change', apply);
+  sort.addEventListener('change', apply);
+})();
+</script>
+
+</body>
+            </html>
